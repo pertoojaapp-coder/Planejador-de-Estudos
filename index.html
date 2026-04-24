@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>VULPS+ · Cronograma de Estudos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --accent-primary: #00D9E8;
+            --accent-secondary: #00C2D1;
+            --accent-strong: #007F8C;
+            --accent-soft: rgba(0, 217, 232, 0.12);
+            --accent-glow: rgba(0, 217, 232, 0.25);
+            --bg-primary: #0D141C;
+            --bg-secondary: #0F1720;
+            --bg-card: #121C26;
+            --text-primary: #F0F8FF;
+            --text-secondary: #B0E5EB;
+            --text-muted: #7FB8C0;
+            --border-light: #1F2E3A;
+            --border-hover: #00D9E8;
+            --success: #22C55E;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --shadow: 0 8px 32px rgba(0,0,0,0.4);
+            --shadow-hover: 0 16px 40px rgba(0,217,232,0.12);
+            --radius-sm: 14px;
+            --radius-lg: 28px;
+        }
+
+        [data-theme="light"] {
+            --accent-primary: #008B9A;
+            --accent-secondary: #007883;
+            --accent-strong: #00626B;
+            --accent-soft: rgba(0,139,154,0.1);
+            --accent-glow: rgba(0,139,154,0.2);
+            --bg-primary: #F5FAFC;
+            --bg-secondary: #E8F4F8;
+            --bg-card: #FFFFFF;
+            --text-primary: #0A1A1F;
+            --text-secondary: #1A3D47;
+            --text-muted: #4A7B85;
+            --border-light: #D0E4EC;
+            --border-hover: #00C2D1;
+            --shadow: 0 8px 32px rgba(0,0,0,0.06);
+            --shadow-hover: 0 16px 40px rgba(0,139,154,0.12);
+        }
+
+        [data-theme="tema-1"] {
+            --accent-primary: #F59E0B;
+            --accent-secondary: #D97706;
+            --accent-strong: #B45309;
+            --accent-soft: rgba(245,158,11,0.12);
+            --accent-glow: rgba(245,158,11,0.3);
+            --bg-primary: #1C140D;
+            --bg-secondary: #241A0F;
+            --bg-card: #2A1F12;
+            --text-primary: #FDF8F0;
+            --text-secondary: #E8D5B7;
+            --text-muted: #C4A97A;
+            --border-light: #3B2E1A;
+            --border-hover: #F59E0B;
+            --shadow: 0 8px 32px rgba(0,0,0,0.5);
+            --shadow-hover: 0 16px 40px rgba(245,158,11,0.15);
+        }
+
+        [data-theme="tema-2"] {
+            --accent-primary: #8B5CF6;
+            --accent-secondary: #7C3AED;
+            --accent-strong: #6D28D9;
+            --accent-soft: rgba(139,92,246,0.12);
+            --accent-glow: rgba(139,92,246,0.25);
+            --bg-primary: #13111C;
+            --bg-secondary: #181623;
+            --bg-card: #1E1B2A;
+            --text-primary: #F2F0FF;
+            --text-secondary: #C7C0EA;
+            --text-muted: #9F94C8;
+            --border-light: #2E2840;
+            --border-hover: #8B5CF6;
+            --shadow: 0 8px 32px rgba(0,0,0,0.5);
+            --shadow-hover: 0 16px 40px rgba(139,92,246,0.15);
+        }
+
+        [data-theme="minimal"] {
+            --accent-primary: #4a6cf7;
+            --accent-secondary: #6c757d;
+            --accent-strong: #3b5de7;
+            --accent-soft: rgba(74,108,247,0.08);
+            --accent-glow: transparent;
+            --bg-primary: #f7f7f7;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #222;
+            --text-secondary: #555;
+            --text-muted: #888;
+            --border-light: #e5e5e5;
+            --border-hover: #dcdcdc;
+            --shadow: none;
+            --shadow-hover: none;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+            padding: 24px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container { max-width: 900px; width: 100%; }
+
+        .app-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            padding: 16px 0;
+            margin-bottom: 24px;
+            border-bottom: 2px solid var(--accent-primary);
+        }
+        .app-header h1 { font-weight: 700; font-size: 1.8rem; background: linear-gradient(135deg, var(--text-primary), var(--accent-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .theme-btn { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 40px; padding: 8px 18px; color: var(--text-primary); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s; font-family: inherit; font-size: 0.9rem; }
+        .theme-btn:hover { border-color: var(--accent-primary); }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            margin-bottom: 24px;
+            transition: all 0.3s;
+        }
+        .card:hover { box-shadow: var(--shadow-hover); border-color: var(--border-hover); }
+
+        .btn {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-light);
+            border-radius: 40px;
+            padding: 10px 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        .btn-primary { background: linear-gradient(135deg, var(--accent-primary), var(--accent-strong)); border: none; color: #0A1418; }
+        .btn-primary:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .btn-outline:hover { background: var(--accent-soft); border-color: var(--accent-primary); }
+        .btn-sm { padding: 6px 14px; font-size: 0.85rem; }
+
+        select, input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            font-family: inherit;
+            margin-top: 4px;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+        select:focus, input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        label { font-weight: 500; font-size: 0.9rem; color: var(--text-secondary); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+        .flex-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+
+        .hidden { display: none !important; }
+
+        .tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+        .tab { padding: 8px 18px; border-radius: 30px; cursor: pointer; border: 1px solid var(--border-light); background: transparent; color: var(--text-primary); transition: all 0.2s; font-family: inherit; font-size: 0.9rem; }
+        .tab.ativo { background: var(--accent-soft); border-color: var(--accent-primary); }
+
+        .disciplina-input { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; flex-wrap: wrap; }
+
+        .tarefa-bloco { background: var(--bg-secondary); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 10px; border: 1px solid var(--border-light); display: flex; align-items: center; gap: 12px; flex-wrap: wrap; transition: all 0.2s; }
+        .tarefa-bloco.concluido { opacity: 0.6; text-decoration: line-through; }
+        .tarefa-bloco input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent-primary); cursor: pointer; flex-shrink: 0; }
+
+        .error-banner {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            padding: 12px 18px;
+            border-radius: 40px;
+            border: 1px solid var(--danger);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .success-banner {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--success);
+            padding: 12px 18px;
+            border-radius: 40px;
+            border: 1px solid var(--success);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            animation: fadeIn 0.3s ease;
+        }
+        .input-error { border-color: var(--danger) !important; }
+
+        .salvo-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            background: var(--accent-soft);
+            color: var(--accent-primary);
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            margin-left: 10px;
+        }
+        .salvo-indicator.show { opacity: 1; }
+
+        .carga-info { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; padding: 8px 14px; background: var(--bg-secondary); border-radius: 20px; display: inline-block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 600px) {
+            body { padding: 12px; }
+            .app-header h1 { font-size: 1.4rem; }
+            .disciplina-input { flex-direction: column; }
+            .disciplina-input > * { width: 100%; }
+            .tarefa-bloco { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="app-header">
+        <h1>📅 Cronograma</h1>
+        <button class="theme-btn" id="themeToggle"><i class="fas fa-moon"></i> <span>Tema</span></button>
+    </div>
+
+    <!-- INDICADOR DE SALVO -->
+    <div style="text-align:right;margin-bottom:8px;min-height:24px;">
+        <span class="salvo-indicator" id="salvoIndicador">Salvo</span>
+    </div>
+
+    <!-- TELA DE CONFIGURAÇÃO -->
+    <div id="configView">
+        <div class="card">
+            <h2 style="margin-bottom:16px;"><i class="fas fa-cog"></i> Configurar Plano</h2>
+            <div id="configErro"></div>
+            <label for="dataProva">Data da prova</label>
+            <input type="date" id="dataProva">
+            <label for="horasPorDia">Horas por dia de estudo</label>
+            <input type="number" id="horasPorDia" min="1" max="12" value="4">
+            <label>Dias da semana</label>
+            <div class="flex-row" id="diasSemana">
+                <label><input type="checkbox" class="dia-check" value="1" checked> Seg</label>
+                <label><input type="checkbox" class="dia-check" value="2" checked> Ter</label>
+                <label><input type="checkbox" class="dia-check" value="3" checked> Qua</label>
+                <label><input type="checkbox" class="dia-check" value="4" checked> Qui</label>
+                <label><input type="checkbox" class="dia-check" value="5" checked> Sex</label>
+                <label><input type="checkbox" class="dia-check" value="6"> Sáb</label>
+                <label><input type="checkbox" class="dia-check" value="0"> Dom</label>
+            </div>
+            <label style="margin-top:16px;">Disciplinas</label>
+            <div id="listaDisciplinas"></div>
+            <button class="btn btn-outline btn-sm" id="addDisciplina"><i class="fas fa-plus"></i> Adicionar</button>
+            <div style="margin-top:20px;">
+                <button class="btn btn-primary" id="gerarCronogramaBtn"><i class="fas fa-calendar-check"></i> Gerar Cronograma</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA PRINCIPAL PÓS-GERAÇÃO -->
+    <div id="mainView" class="hidden">
+        <div class="tabs" id="tabsContainer">
+            <button class="tab ativo" data-tab="hoje">📌 Hoje</button>
+            <button class="tab" data-tab="cronograma">📅 Próximos Dias</button>
+            <button class="tab" data-tab="progresso">📊 Progresso</button>
+        </div>
+        <div id="tabHoje"></div>
+        <div id="tabCronograma" class="hidden"></div>
+        <div id="tabProgresso" class="hidden"></div>
+        <div class="flex-row" style="margin-top:20px; justify-content: space-between;">
+            <button class="btn btn-outline" id="replanejarBtn"><i class="fas fa-sync-alt"></i> Replanejar (recalcular atrasos)</button>
+            <button class="btn btn-outline" id="voltarConfigBtn"><i class="fas fa-cog"></i> Nova Configuração</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    (() => {
+        const STORAGE_CONFIG = 'cron_config';
+        const STORAGE_CRONO = 'cron_gerado';
+        const STORAGE_UI = 'cron_ui_state';
+
+        let config = {
+            disciplinas: [
+                { id: '1', nome: 'Direito Constitucional', nivel: 'iniciante', peso: 1 },
+                { id: '2', nome: 'Português', nivel: 'médio', peso: 1 },
+            ],
+            dataProva: '',
+            horasPorDia: 4,
+            diasSemana: [1,2,3,4,5],
+            criadoEm: null,
+        };
+        let cronograma = [];
+        let abaAtiva = 'hoje';
+
+        const NIVEL_PESOS = { 'iniciante': 1.5, 'médio': 1.2, 'avançado': 1.0 };
+
+        function salvarConfig() { localStorage.setItem(STORAGE_CONFIG, JSON.stringify(config)); }
+        function salvarCronograma() { localStorage.setItem(STORAGE_CRONO, JSON.stringify(cronograma)); }
+        function salvarUIState() { localStorage.setItem(STORAGE_UI, JSON.stringify({ abaAtiva })); }
+        function carregar() {
+            const c = localStorage.getItem(STORAGE_CONFIG);
+            if (c) config = JSON.parse(c);
+            const g = localStorage.getItem(STORAGE_CRONO);
+            if (g) cronograma = JSON.parse(g);
+            const u = localStorage.getItem(STORAGE_UI);
+            if (u) { const parsed = JSON.parse(u); if (parsed.abaAtiva) abaAtiva = parsed.abaAtiva; }
+        }
+
+        function mostrarSalvo() {
+            const el = document.getElementById('salvoIndicador');
+            el.classList.add('show');
+            clearTimeout(el._timeout);
+            el._timeout = setTimeout(() => el.classList.remove('show'), 1500);
+        }
+
+        const temas = ['dark','light','tema-1','tema-2','minimal'];
+        function getTema() { return document.documentElement.getAttribute('data-theme') || 'dark'; }
+        function setTema(t) { document.documentElement.setAttribute('data-theme', t); localStorage.setItem('cron_theme', t); }
+        document.getElementById('themeToggle').addEventListener('click', ()=>{
+            const atual = getTema();
+            const idx = (temas.indexOf(atual) + 1) % temas.length;
+            setTema(temas[idx]);
+        });
+        const savedTheme = localStorage.getItem('cron_theme');
+        if (savedTheme) setTema(savedTheme);
+
+        function gerarId() { return Date.now().toString(36) + Math.random().toString(36).substr(2, 9); }
+
+        // Validação
+        function validarConfig() {
+            const erros = [];
+            const dataProva = document.getElementById('dataProva').value;
+            const horas = parseInt(document.getElementById('horasPorDia').value);
+            if (!dataProva) erros.push('Informe a data da prova.');
+            else if (new Date(dataProva) <= new Date()) erros.push('A data da prova deve ser futura.');
+            if (!horas || horas < 1) erros.push('Informe horas por dia (mínimo 1).');
+            if (!config.disciplinas.length) erros.push('Adicione pelo menos uma disciplina.');
+            const dias = document.querySelectorAll('.dia-check:checked');
+            if (!dias.length) erros.push('Selecione ao menos um dia da semana.');
+            return erros;
+        }
+
+        function mostrarErros(erros) {
+            const container = document.getElementById('configErro');
+            if (!erros.length) { container.innerHTML = ''; return; }
+            container.innerHTML = `<div class="error-banner"><i class="fas fa-exclamation-triangle"></i> ${erros.join('<br>')}</div>`;
+        }
+
+        function limparErros() { document.getElementById('configErro').innerHTML = ''; }
+
+        // Config View
+        const configView = document.getElementById('configView');
+        const mainView = document.getElementById('mainView');
+        const listaDisc = document.getElementById('listaDisciplinas');
+        const dataProvaInput = document.getElementById('dataProva');
+        const horasPorDiaInput = document.getElementById('horasPorDia');
+
+        function renderConfig() {
+            dataProvaInput.value = config.dataProva || '';
+            horasPorDiaInput.value = config.horasPorDia;
+            document.querySelectorAll('.dia-check').forEach(cb => {
+                cb.checked = config.diasSemana.includes(parseInt(cb.value));
+            });
+            renderDisciplinas();
+        }
+
+        function renderDisciplinas() {
+            listaDisc.innerHTML = config.disciplinas.map(d => `
+                <div class="disciplina-input">
+                    <input type="text" value="${d.nome}" placeholder="Nome" data-id="${d.id}" class="disc-nome" style="flex:2;">
+                    <select data-id="${d.id}" class="disc-nivel" style="flex:1;">
+                        <option value="iniciante" ${d.nivel === 'iniciante' ? 'selected' : ''}>Iniciante</option>
+                        <option value="médio" ${d.nivel === 'médio' ? 'selected' : ''}>Médio</option>
+                        <option value="avançado" ${d.nivel === 'avançado' ? 'selected' : ''}>Avançado</option>
+                    </select>
+                    <input type="number" value="${d.peso}" step="0.1" min="0.1" data-id="${d.id}" class="disc-peso" style="flex:0.5;" title="Peso" aria-label="Peso da disciplina">
+                    <button class="btn btn-outline btn-sm" data-id="${d.id}" title="Remover disciplina" aria-label="Remover disciplina"><i class="fas fa-trash"></i></button>
+                </div>
+            `).join('');
+            document.querySelectorAll('.disc-nome').forEach(inp => inp.addEventListener('change', updateDisciplina));
+            document.querySelectorAll('.disc-nivel').forEach(sel => sel.addEventListener('change', updateDisciplina));
+            document.querySelectorAll('.disc-peso').forEach(inp => inp.addEventListener('change', updateDisciplina));
+            document.querySelectorAll('.disciplina-input .btn').forEach(btn => btn.addEventListener('click', (e) => {
+                const id = e.currentTarget.dataset.id;
+                config.disciplinas = config.disciplinas.filter(d => d.id !== id);
+                salvarConfig();
+                renderDisciplinas();
+                mostrarSalvo();
+            }));
+        }
+
+        function updateDisciplina(e) {
+            const id = e.target.dataset.id;
+            const disc = config.disciplinas.find(d => d.id === id);
+            if (!disc) return;
+            if (e.target.classList.contains('disc-nome')) disc.nome = e.target.value;
+            else if (e.target.classList.contains('disc-nivel')) disc.nivel = e.target.value;
+            else if (e.target.classList.contains('disc-peso')) disc.peso = parseFloat(e.target.value) || 1;
+            salvarConfig();
+            mostrarSalvo();
+        }
+
+        document.getElementById('addDisciplina').addEventListener('click', () => {
+            config.disciplinas.push({ id: gerarId(), nome: 'Nova', nivel: 'iniciante', peso: 1 });
+            salvarConfig();
+            renderDisciplinas();
+            mostrarSalvo();
+        });
+
+        function coletarConfig() {
+            config.dataProva = dataProvaInput.value;
+            config.horasPorDia = parseInt(horasPorDiaInput.value) || 4;
+            config.diasSemana = [];
+            document.querySelectorAll('.dia-check:checked').forEach(cb => config.diasSemana.push(parseInt(cb.value)));
+            config.criadoEm = new Date().toISOString();
+            salvarConfig();
+            mostrarSalvo();
+        }
+
+        function proximoDiaUtil(data, diasSemana) {
+            const d = new Date(data);
+            d.setHours(0,0,0,0);
+            let tentativas = 0;
+            while (!diasSemana.includes(d.getDay()) && tentativas < 7) {
+                d.setDate(d.getDate() + 1);
+                tentativas++;
+            }
+            return d;
+        }
+
+        function gerarCronograma(silencioso = false) {
+            coletarConfig();
+            const erros = validarConfig();
+            if (erros.length) {
+                mostrarErros(erros);
+                return false;
+            }
+            limparErros();
+
+            if (!silencioso && cronograma.length > 0) {
+                if (!confirm('Já existe um cronograma. Deseja sobrescrevê-lo?')) return false;
+            }
+
+            const hoje = new Date();
+            hoje.setHours(0,0,0,0);
+            const dataProva = new Date(config.dataProva + 'T00:00:00');
+            const diasRestantes = Math.max(1, Math.ceil((dataProva - hoje) / (1000 * 60 * 60 * 24)) + 1);
+            const horasTotal = diasRestantes * config.horasPorDia;
+
+            // Pesos ajustados
+            let somaPesos = 0;
+            const menorCarga = Math.min(...config.disciplinas.map(d => (d.peso || 1) * NIVEL_PESOS[d.nivel]), 1);
+            config.disciplinas.forEach(d => {
+                d._pesoAjustado = (d.peso || 1) * NIVEL_PESOS[d.nivel];
+                somaPesos += d._pesoAjustado;
+            });
+            config.disciplinas.forEach(d => d._cargaHoras = (horasTotal * d._pesoAjustado) / somaPesos);
+
+            // Construir fila proporcional
+            const filaDisciplinas = [];
+            config.disciplinas.forEach(d => {
+                const repeticoes = Math.max(1, Math.round(d._cargaHoras / Math.max(0.1, menorCarga)));
+                for (let i = 0; i < repeticoes; i++) filaDisciplinas.push(d);
+            });
+            // Embaralhar levemente para variedade mantendo proporção
+            for (let i = filaDisciplinas.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [filaDisciplinas[i], filaDisciplinas[j]] = [filaDisciplinas[j], filaDisciplinas[i]];
+            }
+
+            // Gerar datas de estudo
+            const diasEstudo = [];
+            let cursor = new Date(hoje);
+            while (cursor <= dataProva) {
+                if (config.diasSemana.includes(cursor.getDay())) {
+                    diasEstudo.push(new Date(cursor));
+                }
+                cursor.setDate(cursor.getDate() + 1);
+            }
+
+            cronograma = [];
+            let indiceFila = 0;
+            const blocosDiarios = Math.max(1, Math.floor(config.horasPorDia * 60 / 90));
+
+            for (const dia of diasEstudo) {
+                const dataStr = dia.toISOString().split('T')[0];
+                const tarefas = [];
+                for (let i = 0; i < blocosDiarios; i++) {
+                    const disc = filaDisciplinas[indiceFila % filaDisciplinas.length];
+                    indiceFila++;
+                    const tipo = (i % 2 === 0) ? 'teoria' : 'questões';
+                    tarefas.push({
+                        id: gerarId(),
+                        disciplinaId: disc.id,
+                        tipo: tipo,
+                        duracaoMin: 90,
+                        concluido: false,
+                        conteudo: null,
+                    });
+                }
+                cronograma.push({ data: dataStr, tarefas });
+            }
+
+            // Revisões espaçadas com fallback para próximo dia útil
+            const revisoes = [];
+            for (const dia of cronograma) {
+                for (const t of dia.tarefas) {
+                    if (t.tipo === 'teoria') {
+                        [1, 7, 15, 30].forEach(delta => {
+                            const dataRevisao = new Date(dia.data);
+                            dataRevisao.setDate(dataRevisao.getDate() + delta);
+                            if (dataRevisao <= dataProva) {
+                                const dataUtil = proximoDiaUtil(dataRevisao, config.diasSemana);
+                                if (dataUtil <= dataProva) {
+                                    revisoes.push({
+                                        data: dataUtil.toISOString().split('T')[0],
+                                        disciplinaId: t.disciplinaId,
+                                        tipo: 'revisão',
+                                        duracaoMin: 60,
+                                        concluido: false,
+                                        id: gerarId(),
+                                        conteudo: config.disciplinas.find(d => d.id === t.disciplinaId)?.nome || null,
+                                    });
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+
+            for (const rev of revisoes) {
+                let diaExistente = cronograma.find(d => d.data === rev.data);
+                if (!diaExistente) {
+                    diaExistente = { data: rev.data, tarefas: [] };
+                    cronograma.push(diaExistente);
+                }
+                // Evitar duplicar revisão do mesmo conteúdo no mesmo dia
+                const jaExiste = diaExistente.tarefas.some(t => t.tipo === 'revisão' && t.disciplinaId === rev.disciplinaId && t.conteudo === rev.conteudo);
+                if (!jaExiste) {
+                    diaExistente.tarefas.push({
+                        id: rev.id,
+                        disciplinaId: rev.disciplinaId,
+                        tipo: 'revisão',
+                        duracaoMin: 60,
+                        concluido: false,
+                        conteudo: rev.conteudo,
+                    });
+                }
+            }
+
+            cronograma.sort((a,b) => a.data.localeCompare(b.data));
+            salvarCronograma();
+            mostrarSalvo();
+            return true;
+        }
+
+        function replanejar() {
+            if (!cronograma.length) return;
+            const hojeStr = new Date().toISOString().split('T')[0];
+            const dataProva = config.dataProva ? new Date(config.dataProva + 'T00:00:00') : null;
+
+            // Coletar tarefas não concluídas de dias passados
+            const tarefasPendentes = [];
+            cronograma = cronograma.filter(dia => {
+                if (dia.data < hojeStr) {
+                    dia.tarefas.forEach(t => { if (!t.concluido) tarefasPendentes.push({ ...t, id: gerarId() }); });
+                    return false;
+                }
+                return true;
+            });
+
+            // Coletar também não concluídas dos dias futuros (removê-las e redistribuir)
+            const novosDias = [];
+            for (const dia of cronograma) {
+                if (dia.data >= hojeStr) {
+                    const pendentes = dia.tarefas.filter(t => !t.concluido);
+                    const concluidas = dia.tarefas.filter(t => t.concluido);
+                    pendentes.forEach(t => tarefasPendentes.push({ ...t, id: gerarId() }));
+                    novosDias.push({ data: dia.data, tarefas: concluidas });
+                }
+            }
+            cronograma = novosDias;
+
+            // Distribuir pendentes nos dias restantes
+            const diasRestantes = cronograma.filter(d => d.data >= hojeStr).sort((a,b) => a.data.localeCompare(b.data));
+            if (!diasRestantes.length && tarefasPendentes.length) {
+                // Criar novos dias se necessário (apenas dias de estudo)
+                let cursor = new Date(hojeStr);
+                const limite = dataProva || new Date(hojeStr);
+                limite.setDate(limite.getDate() + 60);
+                while (cursor <= limite && tarefasPendentes.length > 0) {
+                    if (config.diasSemana.includes(cursor.getDay())) {
+                        const diaStr = cursor.toISOString().split('T')[0];
+                        if (!cronograma.find(d => d.data === diaStr)) {
+                            cronograma.push({ data: diaStr, tarefas: [] });
+                            diasRestantes.push({ data: diaStr, tarefas: [] });
+                        }
+                    }
+                    cursor.setDate(cursor.getDate() + 1);
+                }
+            }
+
+            const blocosMaxPorDia = Math.max(1, Math.floor(config.horasPorDia * 60 / 90));
+            let idxPend = 0;
+            for (const dia of diasRestantes) {
+                while (dia.tarefas.length < blocosMaxPorDia && idxPend < tarefasPendentes.length) {
+                    dia.tarefas.push(tarefasPendentes[idxPend]);
+                    idxPend++;
+                }
+            }
+            // Se sobraram pendentes, adicionar novos dias
+            if (idxPend < tarefasPendentes.length && dataProva) {
+                let cursor = diasRestantes.length ? new Date(diasRestantes[diasRestantes.length-1].data) : new Date(hojeStr);
+                cursor.setDate(cursor.getDate() + 1);
+                while (cursor <= dataProva && idxPend < tarefasPendentes.length) {
+                    if (config.diasSemana.includes(cursor.getDay())) {
+                        const diaStr = cursor.toISOString().split('T')[0];
+                        const novoDia = { data: diaStr, tarefas: [] };
+                        while (novoDia.tarefas.length < blocosMaxPorDia && idxPend < tarefasPendentes.length) {
+                            novoDia.tarefas.push(tarefasPendentes[idxPend]);
+                            idxPend++;
+                        }
+                        cronograma.push(novoDia);
+                    }
+                    cursor.setDate(cursor.getDate() + 1);
+                }
+            }
+
+            cronograma.sort((a,b) => a.data.localeCompare(b.data));
+            salvarCronograma();
+            mostrarSalvo();
+            mostrarMainView();
+        }
+
+        function mostrarMainView() {
+            configView.classList.add('hidden');
+            mainView.classList.remove('hidden');
+            renderTab(abaAtiva);
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('ativo'));
+            const tabAtiva = document.querySelector(`[data-tab="${abaAtiva}"]`);
+            if (tabAtiva) tabAtiva.classList.add('ativo');
+        }
+
+        function renderTab(tab) {
+            abaAtiva = tab;
+            salvarUIState();
+            document.getElementById('tabHoje').classList.add('hidden');
+            document.getElementById('tabCronograma').classList.add('hidden');
+            document.getElementById('tabProgresso').classList.add('hidden');
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('ativo'));
+            const tabBtn = document.querySelector(`[data-tab="${tab}"]`);
+            if (tabBtn) tabBtn.classList.add('ativo');
+
+            if (tab === 'hoje') {
+                const hojeStr = new Date().toISOString().split('T')[0];
+                const dia = cronograma.find(d => d.data === hojeStr);
+                const container = document.getElementById('tabHoje');
+                container.classList.remove('hidden');
+                if (!dia || !dia.tarefas.length) {
+                    container.innerHTML = '<div class="card">Nenhuma tarefa para hoje. Talvez seja dia de descanso 🏖️</div>';
+                    return;
+                }
+                const totalMinutos = dia.tarefas.reduce((s, t) => s + t.duracaoMin, 0);
+                const horasDisp = config.horasPorDia * 60;
+                const discSet = new Set(dia.tarefas.map(t => t.disciplinaId));
+                const discNomes = [...discSet].map(id => config.disciplinas.find(d => d.id === id)?.nome || '??').join(', ');
+                container.innerHTML = `<div class="card">
+                    <h3>📌 Hoje - ${new Date(hojeStr).toLocaleDateString('pt-BR', {weekday:'long', day:'2-digit', month:'2-digit'})}</h3>
+                    <div class="carga-info">Total: ${Math.floor(totalMinutos/60)}h ${totalMinutos%60}min / ${config.horasPorDia}h disponíveis · Disciplinas: ${discNomes}</div>
+                    ${dia.tarefas.map(t => {
+                        const disc = config.disciplinas.find(d => d.id === t.disciplinaId);
+                        const label = t.conteudo ? `${disc ? disc.nome : '??'} - ${t.conteudo}` : `${disc ? disc.nome : '??'} - ${t.tipo}`;
+                        return `<div class="tarefa-bloco ${t.concluido ? 'concluido' : ''}" data-id="${t.id}">
+                            <input type="checkbox" ${t.concluido ? 'checked' : ''} class="check-tarefa" data-id="${t.id}" id="tarefa-${t.id}">
+                            <label for="tarefa-${t.id}" style="flex:1;cursor:pointer;"><strong>${label}</strong></label>
+                            <span>${t.duracaoMin} min</span>
+                        </div>`;
+                    }).join('')}
+                </div>`;
+                setupTarefaCheckboxes();
+            } else if (tab === 'cronograma') {
+                const container = document.getElementById('tabCronograma');
+                container.classList.remove('hidden');
+                const dias = cronograma.filter(d => d.data >= new Date().toISOString().split('T')[0]);
+                if (!dias.length) {
+                    container.innerHTML = '<div class="card">Nenhum dia restante no cronograma.</div>';
+                    return;
+                }
+                container.innerHTML = dias.map(dia => `
+                    <div class="card">
+                        <h3>${new Date(dia.data + 'T00:00:00').toLocaleDateString('pt-BR', {weekday:'long', day:'2-digit', month:'2-digit'})}</h3>
+                        ${dia.tarefas.length === 0 ? '<div style="color:var(--text-muted);">Nenhuma tarefa</div>' : ''}
+                        ${dia.tarefas.map(t => {
+                            const disc = config.disciplinas.find(d => d.id === t.disciplinaId);
+                            const label = t.conteudo ? `${disc ? disc.nome : '??'} - revisão: ${t.conteudo}` : `${disc ? disc.nome : '??'} - ${t.tipo}`;
+                            return `<div class="tarefa-bloco ${t.concluido ? 'concluido' : ''}">${label} (${t.duracaoMin}min)</div>`;
+                        }).join('')}
+                    </div>
+                `).join('');
+            } else if (tab === 'progresso') {
+                const container = document.getElementById('tabProgresso');
+                container.classList.remove('hidden');
+                const stats = config.disciplinas.map(disc => {
+                    const total = cronograma.reduce((acc, dia) => acc + dia.tarefas.filter(t => t.disciplinaId === disc.id).length, 0);
+                    const concluidos = cronograma.reduce((acc, dia) => acc + dia.tarefas.filter(t => t.disciplinaId === disc.id && t.concluido).length, 0);
+                    const tempoTotal = cronograma.reduce((acc, dia) => acc + dia.tarefas.filter(t => t.disciplinaId === disc.id).reduce((s, t) => s + t.duracaoMin, 0), 0);
+                    return { disc, total, concluidos, tempoTotal, perc: total ? Math.round(concluidos/total*100) : 0 };
+                });
+                const totalGlobal = cronograma.reduce((acc, d) => acc + d.tarefas.length, 0);
+                const concluidosGlobal = cronograma.reduce((acc, d) => acc + d.tarefas.filter(t => t.concluido).length, 0);
+                container.innerHTML = `
+                    <div class="card">
+                        <h3>Geral</h3>
+                        <div>${concluidosGlobal}/${totalGlobal} blocos concluídos (${totalGlobal ? Math.round(concluidosGlobal/totalGlobal*100) : 0}%)</div>
+                    </div>
+                    ${stats.map(s => `
+                    <div class="card">
+                        <strong>${s.disc.nome}</strong>
+                        <div>${s.concluidos}/${s.total} blocos concluídos (${s.perc}%)</div>
+                        <div>Tempo total: ${Math.floor(s.tempoTotal/60)}h ${s.tempoTotal%60}min</div>
+                    </div>
+                `).join('')}`;
+                const revisoesPendentes = cronograma.find(d => d.data === new Date().toISOString().split('T')[0])?.tarefas.filter(t => t.tipo === 'revisão' && !t.concluido) || [];
+                if (revisoesPendentes.length) {
+                    container.innerHTML += `<div class="card"><h4>📚 Revisões pendentes hoje</h4>` +
+                        revisoesPendentes.map(t => {
+                            const d = config.disciplinas.find(dd => dd.id === t.disciplinaId);
+                            return `<div class="tarefa-bloco">${t.conteudo || (d ? d.nome : '??')}</div>`;
+                        }).join('') + '</div>';
+                }
+            }
+        }
+
+        function setupTarefaCheckboxes() {
+            document.querySelectorAll('.check-tarefa').forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    const id = e.target.dataset.id;
+                    let alterado = false;
+                    for (const dia of cronograma) {
+                        const t = dia.tarefas.find(t => t.id === id);
+                        if (t) { t.concluido = e.target.checked; alterado = true; break; }
+                    }
+                    if (alterado) {
+                        salvarCronograma();
+                        mostrarSalvo();
+                        renderTab('hoje');
+                    }
+                });
+            });
+        }
+
+        // Navegação por teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && document.activeElement?.classList.contains('check-tarefa')) {
+                // Já funciona nativamente
+            }
+        });
+
+        // Eventos
+        document.getElementById('gerarCronogramaBtn').addEventListener('click', () => {
+            if (gerarCronograma()) mostrarMainView();
+        });
+        document.getElementById('replanejarBtn').addEventListener('click', replanejar);
+        document.getElementById('voltarConfigBtn').addEventListener('click', () => {
+            if (cronograma.length && !confirm('Voltar para configuração manterá o cronograma atual. Deseja continuar?')) return;
+            mainView.classList.add('hidden');
+            configView.classList.remove('hidden');
+            renderConfig();
+        });
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => renderTab(tab.dataset.tab));
+        });
+
+        // Inicialização
+        carregar();
+        if (config.criadoEm && cronograma.length) {
+            mostrarMainView();
+        } else {
+            renderConfig();
+        }
+        document.querySelectorAll('.dia-check').forEach(cb => cb.addEventListener('change', () => { coletarConfig(); mostrarSalvo(); }));
+        document.getElementById('horasPorDia').addEventListener('change', () => { coletarConfig(); mostrarSalvo(); });
+        document.getElementById('dataProva').addEventListener('change', () => { coletarConfig(); mostrarSalvo(); });
+    })();
+</script>
+</body>
+</html>
